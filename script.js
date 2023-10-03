@@ -21,3 +21,21 @@ fectdatabtn.addEventListener('click', async () => {
         window.location.href = `listing.html?ip=${ip}`;
     }
 });
+
+window.onload = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ip = urlParams.get('ip');
+
+    document.getElementById('ip-add').innerHTML = `IP Address : <span>${ip}</span>`;
+
+    try {
+        const response = await fetch(`https://ipapi.co/${ip}/json/`);
+        const data = await response.json();
+        console.log(data)
+        getdataonui(data);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error fetching IP information: ' + error.message);
+    }
+   
+};
